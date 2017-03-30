@@ -1,0 +1,8 @@
+/*
+    This file exports the classes into the global namespace,
+    exactly like you normally use css.
+*/
+
+* {
+    box-sizing: border-box;
+}
