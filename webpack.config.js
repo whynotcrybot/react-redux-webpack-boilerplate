@@ -126,6 +126,7 @@ const basePlugins = [
   }),
   new webpack.DefinePlugin({
     'process.env': {
+      __DEV__: process.env.NODE_ENV !== 'production',
       NODE_ENV: JSON.stringify(nodeEnv)
     }
   }),
@@ -177,9 +178,10 @@ module.exports = {
   devtool: isProduction ? 'source-map' : 'inline-source-map',
   context: jsSourcePath,
   entry: {
-    js: './index.js',
+    js: './index.jsx',
     vendor: [
       'babel-polyfill',
+      'isomorphic-fetch',
       'react-dom',
       'react-redux',
       'react-router',
