@@ -1,4 +1,3 @@
-import 'whatwg-fetch';
 import 'babel-polyfill';
 
 import * as React        from 'react';
@@ -9,16 +8,18 @@ import {
     createStore, applyMiddleware, compose
 }                        from 'redux';
 import thunkMiddleWare   from 'redux-thunk';
-import rootReducer       from 'src/ducks';
-import * as createLogger from 'redux-logger';
+import rootReducer       from 'ducks';
+//import { createLogger } from 'redux-logger';
 
 //
 // STORE
 //
 
 const middleware = [
-    thunkMiddleWare
-].concat(process.env.__DEV__ ? [createLogger({collapsed: true})] : []);
+  thunkMiddleWare
+].concat(process.env.__DEV__ ? [
+  //createLogger({collapsed: true})
+] : []);
 
 const enhancer = compose(
     applyMiddleware(...middleware)
@@ -52,11 +53,11 @@ function renderApp (RootComponent) {
 
 renderApp(Root);
 
-if (module.hot) {
-    module.hot.accept(
-        './Root',
-        () => {
-            renderApp(require('./Root').default);
-        }
-    );
-}
+// if (module.hot) {
+//     module.hot.accept(
+//         './Root',
+//         () => {
+//             renderApp(require('./Root').default);
+//         }
+//     );
+// }
