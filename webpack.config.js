@@ -115,17 +115,17 @@ loaders.globalcss = {
 //     }]
 // };
 //
-// loaders.image = {
-//     test: /\.(jpe?g|png|gif)$/i,
-//     use: [{
-//         loader: 'file-loader',
-//         options: {
-//             hash: 'sha512',
-//             digest: 'hex',
-//             name: 'images/[name]-[hash].[ext]'
-//         }
-//     }]
-// };
+loaders.image = {
+    test: /\.(jpe?g|png|gif)$/i,
+    use: [{
+        loader: 'file-loader',
+        options: {
+            hash: 'sha512',
+            digest: 'hex',
+            name: 'images/[name]-[hash].[ext]'
+        }
+    }]
+};
 
 //
 // PLUGINS
@@ -215,7 +215,7 @@ module.exports = {
   module: {
     rules: [
       loaders.js,
-      //loaders.image,
+      loaders.image,
       loaders.globalcss,
       loaders.css,
       //loaders.ttfeot,
