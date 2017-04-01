@@ -1,15 +1,16 @@
+import 'isomorphic-fetch';
 import 'babel-polyfill';
 
-import * as React        from 'react';
-import * as ReactDOM     from 'react-dom';
-import Root              from './Root';
-import { AppContainer }  from 'react-hot-loader';
+import React             from 'react';
+import ReactDOM          from 'react-dom';
 import {
     createStore, applyMiddleware, compose
 }                        from 'redux';
 import thunkMiddleWare   from 'redux-thunk';
-import rootReducer       from 'ducks';
-//import { createLogger } from 'redux-logger';
+import { createLogger }  from 'redux-logger';
+import rootReducer       from './ducks';
+import Root              from './Root';
+import createRoutes      from './routes';
 
 //
 // STORE
@@ -17,21 +18,19 @@ import rootReducer       from 'ducks';
 
 const middleware = [
   thunkMiddleWare
-].concat(process.env.__DEV__ ? [
-  //createLogger({collapsed: true})
-] : []);
+].concat(process.env.__DEV__ ? [createLogger({collapsed: true})] : []);
 
 const enhancer = compose(
-    applyMiddleware(...middleware)
+  applyMiddleware(...middleware)
 );
 
 export default function configureStore (initialState) {
-    const store = createStore(rootReducer, initialState, enhancer);
-    module.hot.accept('./ducks', () => {
-        const nextRootReducer = require('./ducks');
-        store.replaceReducer(nextRootReducer);
-    });
-    return store;
+  const store = createStore(rootReducer, initialState, enhancer);
+  module.hot.accept('./ducks', () => {
+    const nextRootReducer = require('./ducks');
+    store.replaceReducer(nextRootReducer);
+  });
+  return store;
 };
 
 const store = configureStore({});
@@ -41,14 +40,12 @@ const store = configureStore({});
 //
 
 function renderApp (RootComponent) {
-    ReactDOM.render(
-        <AppContainer>
-            <RootComponent
-                store={store}
-            />
-        </AppContainer>,
-        document.getElementById('root')
-    );
+  ReactDOM.render(
+    <RootComponent
+      store={store}
+    />,
+    document.getElementById('root')
+  );
 }
 
 renderApp(Root);
