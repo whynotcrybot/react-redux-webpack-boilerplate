@@ -9,7 +9,7 @@ import createRoutes from './routes';
 
 // import it here to activate hot-reloading for css
 // (see index.tsx and search for module.hot)
-// import './styles/index.global.css';
+import '../style/index.global.css';
 
 class Root extends React.Component{
     render () {
