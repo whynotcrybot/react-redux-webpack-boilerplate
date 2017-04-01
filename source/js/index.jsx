@@ -4,13 +4,12 @@ import 'babel-polyfill';
 import React             from 'react';
 import ReactDOM          from 'react-dom';
 import {
-    createStore, applyMiddleware, compose
+  createStore, applyMiddleware, compose
 }                        from 'redux';
 import thunkMiddleWare   from 'redux-thunk';
 import { createLogger }  from 'redux-logger';
 import rootReducer       from './ducks';
 import Root              from './Root';
-import createRoutes      from './routes';
 
 //
 // STORE
