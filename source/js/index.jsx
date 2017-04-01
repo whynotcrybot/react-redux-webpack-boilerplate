@@ -49,11 +49,11 @@ function renderApp (RootComponent) {
 
 renderApp(Root);
 
-// if (module.hot) {
-//     module.hot.accept(
-//         './Root',
-//         () => {
-//             renderApp(require('./Root').default);
-//         }
-//     );
-// }
+if (module.hot) {
+    module.hot.accept(
+        './Root',
+        () => {
+            renderApp(require('./Root').default);
+        }
+    );
+}
