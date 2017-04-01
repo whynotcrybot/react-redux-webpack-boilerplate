@@ -13,6 +13,31 @@ const buildPath = path.join(__dirname, './build');
 const sourcePath = path.join(__dirname, './source');
 
 //
+// POSTCSS
+//
+
+const postcssBasePlugins = [
+  require('postcss-modules-local-by-default'),
+  require('postcss-import')({
+      addDependencyTo: webpack
+  }),
+  require('postcss-cssnext'),
+  require('postcss-nested')
+];
+const postcssDevPlugins = [];
+const postcssProdPlugins = [
+  require('cssnano')({
+    safe: true,
+    sourcemap: true,
+    autoprefixer: false
+  })
+];
+
+const postcssPlugins = postcssBasePlugins
+  .concat(process.env.NODE_ENV === 'production' ? postcssProdPlugins : [])
+  .concat(process.env.NODE_ENV === 'development' ? postcssDevPlugins : []);
+
+//
 // LOADERS
 //
 
@@ -26,53 +51,45 @@ loaders.js = {
   ]
 };
 
-// loaders.css = {
-//     test: /\.css$/,
-//     use: ExtractTextPlugin.extract({
-//         fallback: 'style-loader',
-//         use: [
-//             {
-//                 loader: 'typings-for-css-modules-loader',
-//                 options: {
-//                     modules: true,
-//                     namedExport: true,
-//                     camelCase: true
-//                 }
-//             },
-//             {
-//                 loader: 'postcss-loader',
-//                 options: {
-//                     plugins: postcssPlugins,
-//                     importLoaders: 1
-//                 }
-//             }
-//         ]
-//     }),
-//     exclude: /(node_modules|\.global\.css)/
-// };
-//
-// loaders.globalcss = {
-//     test: /\.global.css$/,
-//     use: ExtractTextPlugin.extract({
-//         fallback: 'style-loader',
-//         use: [
-//             {
-//                 loader: 'css-loader',
-//                 options: {
-//                     localIdentName: '[local]'
-//                 }
-//             },
-//             {
-//                 loader: 'postcss-loader',
-//                 options: {
-//                     plugins: postcssPlugins,
-//                     importLoaders: 1
-//                 }
-//             }
-//         ]
-//     }),
-//     exclude: /node_modules/
-// };
+loaders.css = {
+    test: /\.css$/,
+    use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+            {
+                loader: 'postcss-loader',
+                options: {
+                    plugins: postcssPlugins,
+                    importLoaders: 1
+                }
+            }
+        ]
+    }),
+    exclude: /(node_modules|\.global\.css)/
+};
+
+loaders.globalcss = {
+    test: /\.global.css$/,
+    use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [
+            {
+                loader: 'css-loader',
+                options: {
+                    localIdentName: '[local]'
+                }
+            },
+            {
+                loader: 'postcss-loader',
+                options: {
+                    plugins: postcssPlugins,
+                    importLoaders: 1
+                }
+            }
+        ]
+    }),
+    exclude: /node_modules/
+};
 //
 // loaders.ttfeot = {
 //     test: /\.(ttf|eot)$/i,
@@ -98,17 +115,17 @@ loaders.js = {
 //     }]
 // };
 //
-// loaders.image = {
-//     test: /\.(jpe?g|png|gif)$/i,
-//     use: [{
-//         loader: 'file-loader',
-//         options: {
-//             hash: 'sha512',
-//             digest: 'hex',
-//             name: 'images/[name]-[hash].[ext]'
-//         }
-//     }]
-// };
+loaders.image = {
+    test: /\.(jpe?g|png|gif)$/i,
+    use: [{
+        loader: 'file-loader',
+        options: {
+            hash: 'sha512',
+            digest: 'hex',
+            name: 'images/[name]-[hash].[ext]'
+        }
+    }]
+};
 
 //
 // PLUGINS
@@ -198,9 +215,9 @@ module.exports = {
   module: {
     rules: [
       loaders.js,
-      //loaders.image,
-      //loaders.globalcss,
-      //loaders.css,
+      loaders.image,
+      loaders.globalcss,
+      loaders.css,
       //loaders.ttfeot,
       //loaders.woff
     ]
