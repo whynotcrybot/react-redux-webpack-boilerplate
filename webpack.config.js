@@ -1,95 +1,89 @@
-const webpack = require('webpack');
-const path = require('path');
+const webpack = require('webpack')
+const path = require('path')
 
-const DashboardPlugin = require('webpack-dashboard/plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-const nodeEnv = process.env.NODE_ENV || 'development';
-const isProduction = nodeEnv === 'production';
+const nodeEnv = process.env.NODE_ENV || 'development'
+const isProduction = nodeEnv === 'production'
 
-const jsSourcePath = path.join(__dirname, './source/js');
-const buildPath = path.join(__dirname, './build');
-const sourcePath = path.join(__dirname, './source');
+const jsSourcePath = path.join(__dirname, './source/js')
+const buildPath = path.join(__dirname, './build')
+const sourcePath = path.join(__dirname, './source')
 
-//
 // POSTCSS
-//
-
 const postcssBasePlugins = [
   require('postcss-modules-local-by-default'),
   require('postcss-import')({
-      addDependencyTo: webpack
+    addDependencyTo: webpack
   }),
   require('postcss-cssnext'),
   require('postcss-nested')
-];
-const postcssDevPlugins = [];
+]
+const postcssDevPlugins = []
 const postcssProdPlugins = [
   require('cssnano')({
     safe: true,
     sourcemap: true,
     autoprefixer: false
   })
-];
+]
 
 const postcssPlugins = postcssBasePlugins
   .concat(process.env.NODE_ENV === 'production' ? postcssProdPlugins : [])
-  .concat(process.env.NODE_ENV === 'development' ? postcssDevPlugins : []);
+  .concat(process.env.NODE_ENV === 'development' ? postcssDevPlugins : [])
 
-//
 // LOADERS
-//
-
-const loaders = {};
+const loaders = {}
 
 loaders.js = {
   test: /\.(js|jsx)$/,
   exclude: /node_modules/,
   use: [
-    'babel-loader',
+    'babel-loader'
   ]
-};
+}
 
 loaders.css = {
-    test: /\.css$/,
-    use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [
-            {
-                loader: 'postcss-loader',
-                options: {
-                    plugins: postcssPlugins,
-                    importLoaders: 1
-                }
-            }
-        ]
-    }),
-    exclude: /(node_modules|\.global\.css)/
-};
+  test: /\.css$/,
+  use: ExtractTextPlugin.extract({
+    fallback: 'style-loader',
+    use: [
+      {
+        loader: 'postcss-loader',
+        options: {
+          plugins: postcssPlugins,
+          importLoaders: 1
+        }
+      }
+    ]
+  }),
+  exclude: /(node_modules|\.global\.css)/
+}
 
 loaders.globalcss = {
-    test: /\.global.css$/,
-    use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [
-            {
-                loader: 'css-loader',
-                options: {
-                    localIdentName: '[local]'
-                }
-            },
-            {
-                loader: 'postcss-loader',
-                options: {
-                    plugins: postcssPlugins,
-                    importLoaders: 1
-                }
-            }
-        ]
-    }),
-    exclude: /node_modules/
-};
+  test: /\.global.css$/,
+  use: ExtractTextPlugin.extract({
+    fallback: 'style-loader',
+    use: [
+      {
+        loader: 'css-loader',
+        options: {
+          localIdentName: '[local]'
+        }
+      },
+      {
+        loader: 'postcss-loader',
+        options: {
+          plugins: postcssPlugins,
+          importLoaders: 1
+        }
+      }
+    ]
+  }),
+  exclude: /node_modules/
+}
 //
 // loaders.ttfeot = {
 //     test: /\.(ttf|eot)$/i,
@@ -116,16 +110,16 @@ loaders.globalcss = {
 // };
 //
 loaders.image = {
-    test: /\.(jpe?g|png|gif)$/i,
-    use: [{
-        loader: 'file-loader',
-        options: {
-            hash: 'sha512',
-            digest: 'hex',
-            name: 'images/[name]-[hash].[ext]'
-        }
-    }]
-};
+  test: /\.(jpe?g|png|gif)$/i,
+  use: [{
+    loader: 'file-loader',
+    options: {
+      hash: 'sha512',
+      digest: 'hex',
+      name: 'images/[name]-[hash].[ext]'
+    }
+  }]
+}
 
 //
 // PLUGINS
@@ -133,13 +127,13 @@ loaders.image = {
 
 const sourceMap = process.env.TEST || !isProduction
   ? [new webpack.SourceMapDevToolPlugin({ filename: null, test: /\.jsx?$/ })]
-  : [];
+  : []
 
 const basePlugins = [
   new webpack.optimize.CommonsChunkPlugin({
     name: 'vendor',
     minChunks: Infinity,
-    filename: 'vendor-[hash].js',
+    filename: 'vendor-[hash].js'
   }),
   new webpack.DefinePlugin({
     'process.env': {
@@ -150,7 +144,7 @@ const basePlugins = [
   new HtmlWebpackPlugin({
     template: path.join(sourcePath, 'index.html'),
     path: buildPath,
-    filename: 'index.html',
+    filename: 'index.html'
   }),
   new webpack.NamedModulesPlugin(),
   new webpack.NoEmitOnErrorsPlugin(),
@@ -158,17 +152,17 @@ const basePlugins = [
     filename: 'style.css',
     allChunks: true
   })
-].concat(sourceMap);
+].concat(sourceMap)
 
 const devPlugins = [
-    new webpack.HotModuleReplacementPlugin(),
-    new DashboardPlugin()
-];
+  new webpack.HotModuleReplacementPlugin(),
+  new DashboardPlugin()
+]
 
 const prodPlugins = [
-   new webpack.LoaderOptionsPlugin({
-     minimize: true,
-     debug: false
+  new webpack.LoaderOptionsPlugin({
+    minimize: true,
+    debug: false
   }),
   new webpack.optimize.UglifyJsPlugin({
     compress: {
@@ -181,15 +175,15 @@ const prodPlugins = [
       dead_code: true,
       evaluate: true,
       if_return: true,
-      join_vars: true,
+      join_vars: true
     },
     output: {
-      comments: false,
-    },
+      comments: false
+    }
   })
-];
+]
 
-const plugins = basePlugins.concat(isProduction ? prodPlugins : devPlugins);
+const plugins = basePlugins.concat(isProduction ? prodPlugins : devPlugins)
 
 module.exports = {
   devtool: isProduction ? 'source-map' : 'inline-source-map',
@@ -204,13 +198,13 @@ module.exports = {
       'react-router',
       'react',
       'redux-thunk',
-      'redux',
-    ],
+      'redux'
+    ]
   },
   output: {
     path: buildPath,
     filename: '[name].[hash].js',
-    publicPath: '/',
+    publicPath: '/'
   },
   module: {
     rules: [
@@ -225,7 +219,7 @@ module.exports = {
   resolve: {
     modules: [
       path.resolve(__dirname, 'node_modules'),
-      jsSourcePath,
+      jsSourcePath
     ],
     extensions: [
       '.jsx',
@@ -254,8 +248,8 @@ module.exports = {
       version: false,
       warnings: true,
       colors: {
-        green: '\u001b[32m',
+        green: '\u001b[32m'
       }
     }
   }
-};
+}
