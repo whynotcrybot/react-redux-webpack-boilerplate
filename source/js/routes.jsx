@@ -1,18 +1,21 @@
-import React                    from 'react';
-import { Route, IndexRedirect } from 'react-router-dom';
+import React             from 'react';
+import { Switch, Route } from 'react-router-dom';
 
-import App   from './pages/App';
-import Home  from './pages/Home';
-import About from './pages/About';
-import Neko  from './pages/Neko';
+import App       from './pages/App';
+import Home      from './pages/Home';
+import About     from './pages/About';
+import Neko      from './pages/Neko';
+import NotFound  from './pages/NotFound';
 
 function createRoutes () {
   const routes = (
-    <div>
+    <Switch>
       <Route exact path='/' component={ Home } />
       <Route path='/neko' component={ Neko } />
       <Route path='/about' component={ About } />
-    </div>
+
+      <Route path='*' component={ NotFound } />
+    </Switch>
   );
   return routes;
 }
