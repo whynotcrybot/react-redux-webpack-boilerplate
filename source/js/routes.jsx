@@ -5,6 +5,7 @@ import App       from './pages/App';
 import Home      from './pages/Home';
 import About     from './pages/About';
 import Neko      from './pages/Neko';
+import Counter   from './pages/Counter';
 import NotFound  from './pages/NotFound';
 
 function createRoutes () {
@@ -13,6 +14,7 @@ function createRoutes () {
       <Route exact path='/' component={ Home } />
       <Route path='/neko' component={ Neko } />
       <Route path='/about' component={ About } />
+      <Route path='/counter' component={ Counter } />
 
       <Route path='*' component={ NotFound } />
     </Switch>
