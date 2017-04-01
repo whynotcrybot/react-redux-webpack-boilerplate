@@ -1,13 +1,12 @@
-import React             from 'react';
-import { Switch, Route } from 'react-router-dom';
+import React from 'react'
+import { Switch, Route } from 'react-router-dom'
 
-import Navigation from './components/Navigation';
-import App        from './pages/App';
-import Home       from './pages/Home';
-import About      from './pages/About';
-import Neko       from './pages/Neko';
-import Counter    from './pages/Counter';
-import NotFound   from './pages/NotFound';
+import Navigation from './components/Navigation'
+import Home from './pages/Home'
+import About from './pages/About'
+import Neko from './pages/Neko'
+import Counter from './pages/Counter'
+import NotFound from './pages/NotFound'
 
 const createRoutes = () => {
   return (
@@ -22,7 +21,7 @@ const createRoutes = () => {
         <Route path='*' component={NotFound} />
       </Switch>
     </div>
-  );
+  )
 }
 
-export default createRoutes;
+export default createRoutes
