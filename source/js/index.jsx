@@ -7,7 +7,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunkMiddleWare from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import rootReducer from './ducks'
-import Root from './Root'
+import App from './pages/app'
 
 // Store
 const middleware = [
@@ -32,20 +32,20 @@ export default function configureStore (initialState) {
 const store = configureStore({})
 
 // Render
-function renderApp (RootComponent) {
+function renderApp (AppComponent) {
   ReactDOM.render(
-    <RootComponent
+    <AppComponent
       store={store}
     />,
     document.getElementById('root')
   )
 }
 
-renderApp(Root)
+renderApp(App)
 
 // necessary to enable hot reloading of functions that return jsx
 if (module.hot) {
-  module.hot.accept('./Root', () => {
-    renderApp(require('./Root').default)
+  module.hot.accept('./pages/app', () => {
+    renderApp(require('./pages/app').default)
   })
 }

@@ -1,16 +1,21 @@
 import React from 'react'
-
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
-import createRoutes from './routes'
+import { Flex } from 'reflexbox'
 
-import '../style/index.global.css'
+import Routes from './routes'
+import Navigation from '../components/Navigation'
+
+import '../../style/index.global.css'
 
 const Root = (props) => {
   return (
     <Provider store={props.store}>
       <Router>
-        {createRoutes()}
+        <Flex>
+          <Navigation />
+          <Routes />
+        </Flex>
       </Router>
     </Provider>
   )
