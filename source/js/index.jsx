@@ -9,7 +9,7 @@ import { createLogger } from 'redux-logger'
 import rootReducer from './ducks'
 import Root from './Root'
 
-// STORE
+// Store
 const middleware = [
   thunkMiddleWare
 ].concat(process.env.__DEV__ ? [createLogger({collapsed: true})] : [])
@@ -20,10 +20,12 @@ const enhancer = compose(
 
 export default function configureStore (initialState) {
   const store = createStore(rootReducer, initialState, enhancer)
-  module.hot.accept('./ducks', () => {
-    const nextRootReducer = require('./ducks')
-    store.replaceReducer(nextRootReducer)
-  })
+  if (module.hot) {
+    module.hot.accept(() => {
+      const nextRootReducer = require('./ducks').default
+      store.replaceReducer(nextRootReducer)
+    })
+  }
   return store
 }
 
@@ -41,11 +43,9 @@ function renderApp (RootComponent) {
 
 renderApp(Root)
 
+// necessary to enable hot reloading of functions that return jsx
 if (module.hot) {
-  module.hot.accept(
-    './Root',
-    () => {
-      renderApp(require('./Root').default)
-    }
-  )
+  module.hot.accept('./Root', () => {
+    renderApp(require('./Root').default)
+  })
 }
