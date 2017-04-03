@@ -4,14 +4,14 @@ import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunkMiddleWare from 'redux-thunk'
+import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import rootReducer from './ducks'
 import App from './pages/app'
 
 // Store
 const middleware = [
-  thunkMiddleWare
+  thunk
 ].concat(process.env.__DEV__ ? [createLogger({collapsed: true})] : [])
 
 const enhancer = compose(
@@ -32,9 +32,9 @@ export default function configureStore (initialState) {
 const store = configureStore({})
 
 // Render
-function renderApp (AppComponent) {
+function renderApp (RootComponent) {
   ReactDOM.render(
-    <AppComponent
+    <RootComponent
       store={store}
     />,
     document.getElementById('root')
