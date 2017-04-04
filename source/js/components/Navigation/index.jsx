@@ -1,15 +1,29 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
-const Navigation = () => {
+import * as styles from './styles.css'
+
+const Item = (props) => {
   return (
-    <div>
-      <Link to='/'>Home</Link>
-      <Link to='/about'>About</Link>
-      <Link to='/neko'>Neko</Link>
-      <Link to='/counter'>Counter</Link>
+    <NavLink
+      exact
+      activeStyle={{color: 'black', fontWeight: 'bold'}}
+      className={styles.navigationItem}
+      to={props.to}
+    >
+      {props.children}
+    </NavLink>
+  )
+}
+
+const Wrapper = (props) => {
+  return (
+    <div className={styles.navigationWrapper}>
+      {props.children}
     </div>
   )
 }
 
-export default Navigation
+export default {
+  Item, Wrapper
+}

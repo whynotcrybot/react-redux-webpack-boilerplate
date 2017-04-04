@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Flex } from 'reflexbox'
 
 import Routes from './routes'
-import Navigation from '../components/Navigation'
+import * as Navigation from '../components/Navigation'
 
 import '../../style/index.global.css'
 
@@ -13,7 +13,11 @@ const Root = (props) => {
     <Provider store={props.store}>
       <Router>
         <Flex>
-          <Navigation />
+          <Navigation.Wrapper>
+            <Navigation.Item to={'/'}>{'Home'}</Navigation.Item>
+            <Navigation.Item to={'/counter'}>{'Redux Counter'}</Navigation.Item>
+            <Navigation.Item to={'/neko'}>{'Neko'}</Navigation.Item>
+          </Navigation.Wrapper>
           <Routes />
         </Flex>
       </Router>

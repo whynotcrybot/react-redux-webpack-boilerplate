@@ -47,43 +47,28 @@ loaders.js = {
 
 loaders.css = {
   test: /\.css$/,
-  use: ExtractTextPlugin.extract({
-    fallback: 'style-loader',
-    use: [
-      {
-        loader: 'postcss-loader',
-        options: {
-          plugins: postcssPlugins,
-          importLoaders: 1
-        }
+  use: [
+    {
+      loader: 'style-loader'
+    },
+    {
+      loader: 'css-loader',
+      options: {
+        localIdentName: '[local]',
+        camelCase: true
       }
-    ]
-  }),
-  exclude: /(node_modules|\.global\.css)/
-}
-
-loaders.globalcss = {
-  test: /\.global.css$/,
-  use: ExtractTextPlugin.extract({
-    fallback: 'style-loader',
-    use: [
-      {
-        loader: 'css-loader',
-        options: {
-          localIdentName: '[local]'
-        }
-      },
-      {
-        loader: 'postcss-loader',
-        options: {
-          plugins: postcssPlugins,
-          importLoaders: 1
-        }
+    },
+    {
+      loader: 'postcss-loader',
+      options: {
+        plugins: postcssPlugins,
+        importLoaders: 1
       }
-    ]
-  }),
+    }
+  ],
   exclude: /node_modules/
 }
+
 //
 // loaders.ttfeot = {
 //     test: /\.(ttf|eot)$/i,
@@ -210,7 +195,6 @@ module.exports = {
     rules: [
       loaders.js,
       loaders.image,
-      loaders.globalcss,
       loaders.css,
       //loaders.ttfeot,
       //loaders.woff
