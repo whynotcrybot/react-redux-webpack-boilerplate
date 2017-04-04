@@ -27,7 +27,6 @@
     "copy-webpack-plugin": "^4.0.1",
     "css-loader": "^0.28.0",
     "cssnano": "^3.10.0",
-    "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.28.0",
     "postcss-cssnext": "^2.10.0",

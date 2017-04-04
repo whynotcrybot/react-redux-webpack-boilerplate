@@ -3,7 +3,6 @@ const path = require('path')
 
 const DashboardPlugin = require('webpack-dashboard/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const nodeEnv = process.env.NODE_ENV || 'development'
 const isProduction = nodeEnv === 'production'
