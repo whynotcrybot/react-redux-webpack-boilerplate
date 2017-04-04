@@ -4,7 +4,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import { Flex } from 'reflexbox'
 
 import Routes from './routes'
-import * as Navigation from '../components/Navigation'
+import Navigation from '../components/Navigation'
 
 import '../../style/index.global.css'
 
