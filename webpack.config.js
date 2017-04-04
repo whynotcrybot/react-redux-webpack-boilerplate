@@ -132,11 +132,7 @@ const basePlugins = [
     filename: 'index.html'
   }),
   new webpack.NamedModulesPlugin(),
-  new webpack.NoEmitOnErrorsPlugin(),
-  new ExtractTextPlugin({
-    filename: 'style.css',
-    allChunks: true
-  })
+  new webpack.NoEmitOnErrorsPlugin()
 ].concat(sourceMap)
 
 const devPlugins = [
