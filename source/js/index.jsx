@@ -4,14 +4,14 @@ import 'babel-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { createStore, applyMiddleware, compose } from 'redux'
-import thunkMiddleWare from 'redux-thunk'
+import thunk from 'redux-thunk'
 import { createLogger } from 'redux-logger'
 import rootReducer from './ducks'
-import Root from './Root'
+import App from './pages/app'
 
-// STORE
+// Store
 const middleware = [
-  thunkMiddleWare
+  thunk
 ].concat(process.env.__DEV__ ? [createLogger({collapsed: true})] : [])
 
 const enhancer = compose(
@@ -20,10 +20,12 @@ const enhancer = compose(
 
 export default function configureStore (initialState) {
   const store = createStore(rootReducer, initialState, enhancer)
-  module.hot.accept('./ducks', () => {
-    const nextRootReducer = require('./ducks')
-    store.replaceReducer(nextRootReducer)
-  })
+  if (module.hot) {
+    module.hot.accept(() => {
+      const nextRootReducer = require('./ducks').default
+      store.replaceReducer(nextRootReducer)
+    })
+  }
   return store
 }
 
@@ -39,13 +41,11 @@ function renderApp (RootComponent) {
   )
 }
 
-renderApp(Root)
+renderApp(App)
 
+// necessary to enable hot reloading of functions that return jsx
 if (module.hot) {
-  module.hot.accept(
-    './Root',
-    () => {
-      renderApp(require('./Root').default)
-    }
-  )
+  module.hot.accept('./pages/app', () => {
+    renderApp(require('./pages/app').default)
+  })
 }

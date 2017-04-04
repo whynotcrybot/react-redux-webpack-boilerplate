@@ -1,5 +1,5 @@
 import React from 'react'
-import cat from '../../assets/img/cat.jpg'
+import cat from '../../../assets/img/cat.jpg'
 
 const Neko = () => {
   return (

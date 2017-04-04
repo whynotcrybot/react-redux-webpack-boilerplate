@@ -1,0 +1,11 @@
+.navigation-wrapper {
+  border: 1px solid cyan;
+}
+
+.navigation-item {
+  color: grey;
+}
+
+.navigation-item--active {
+  color: black;
+}
