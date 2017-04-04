@@ -14,9 +14,10 @@ const Root = (props) => {
       <Router>
         <Flex>
           <Navigation.Wrapper>
-            <Navigation.Item to={'/'}>{'Home'}</Navigation.Item>
-            <Navigation.Item to={'/counter'}>{'Redux Counter'}</Navigation.Item>
-            <Navigation.Item to={'/neko'}>{'Neko'}</Navigation.Item>
+            <Navigation.Item to={'/'}>Home</Navigation.Item>
+            <Navigation.Item to={'/counter'}>Redux Counter</Navigation.Item>
+            <Navigation.Item to={'/neko'}>Neko</Navigation.Item>
+            <Navigation.Item to={'/about'}>About</Navigation.Item>
           </Navigation.Wrapper>
           <Routes />
         </Flex>
