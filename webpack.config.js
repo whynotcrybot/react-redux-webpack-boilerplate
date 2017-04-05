@@ -45,7 +45,7 @@ loaders.js = {
 }
 
 loaders.css = {
-  test: /\.css$/,
+  test: /\.(css|scss)$/,
   use: [
     {
       loader: 'style-loader'
@@ -63,6 +63,9 @@ loaders.css = {
         plugins: postcssPlugins,
         importLoaders: 1
       }
+    },
+    {
+      loader: 'sass-loader'
     }
   ],
   exclude: /node_modules/
@@ -105,9 +108,7 @@ loaders.image = {
   }]
 }
 
-//
 // PLUGINS
-//
 
 const sourceMap = process.env.TEST || !isProduction
   ? [new webpack.SourceMapDevToolPlugin({ filename: null, test: /\.jsx?$/ })]
