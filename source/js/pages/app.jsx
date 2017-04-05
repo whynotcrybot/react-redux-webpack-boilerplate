@@ -20,9 +20,7 @@ const Root = (props) => {
               <Navigation.Item to={'/neko'}>Neko</Navigation.Item>
               <Navigation.Item to={'/about'}>About</Navigation.Item>
             </Navigation.Wrapper>
-            <Flex>
-              <Routes />
-            </Flex>
+            <Routes />
           </Box>
         </Flex>
       </Router>

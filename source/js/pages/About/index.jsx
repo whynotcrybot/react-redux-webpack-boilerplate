@@ -1,10 +1,14 @@
 import React from 'react'
 
+import { Flex, Box } from 'reflexbox'
+
 const About = () => {
   return (
-    <div>
-      <h2>About</h2>
-    </div>
+    <Flex justify='center'>
+      <Box col={8}>
+        <h2>About</h2>
+      </Box>
+    </Flex>
   )
 }
 
