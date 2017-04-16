@@ -53,7 +53,7 @@ loaders.css = {
     {
       loader: 'css-loader',
       options: {
-        localIdentName: '[local]',
+        localIdentName: '[hash:base64]',
         camelCase: true
       }
     },
