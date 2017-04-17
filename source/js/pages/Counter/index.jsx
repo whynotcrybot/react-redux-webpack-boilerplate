@@ -2,19 +2,23 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { countUp, countDown } from 'ducks/counter'
 
+import { Flex, Box } from 'reflexbox'
+
 const Counter = function (props) {
   return (
-    <div>
-      <h1>{'Redux Counter'}</h1>
-      <p>
-        {`
-          We already counted ${props.counter.counts}
-          and have a current value of ${props.counter.counter}
-        `}
-      </p>
-      <button onClick={props.countUp}>{'count up'}</button>
-      <button onClick={props.countDown}>{'count down'}</button>
-    </div>
+    <Flex justify='center'>
+      <Box col={8}>
+        <h1>{'Redux Counter'}</h1>
+        <p>
+          {`
+            We already counted ${props.counter.counts}
+            and have a current value of ${props.counter.counter}
+          `}
+        </p>
+        <button onClick={props.countUp}>{'count up'}</button>
+        <button onClick={props.countDown}>{'count down'}</button>
+      </Box>
+    </Flex>
   )
 }
 

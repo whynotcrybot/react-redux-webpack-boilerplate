@@ -3,7 +3,6 @@ const path = require('path')
 
 const DashboardPlugin = require('webpack-dashboard/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 const nodeEnv = process.env.NODE_ENV || 'development'
 const isProduction = nodeEnv === 'production'
@@ -46,7 +45,7 @@ loaders.js = {
 }
 
 loaders.css = {
-  test: /\.css$/,
+  test: /\.(css|scss)$/,
   use: [
     {
       loader: 'style-loader'
@@ -54,7 +53,7 @@ loaders.css = {
     {
       loader: 'css-loader',
       options: {
-        localIdentName: '[local]',
+        localIdentName: '[hash:base64]',
         camelCase: true
       }
     },
@@ -64,6 +63,9 @@ loaders.css = {
         plugins: postcssPlugins,
         importLoaders: 1
       }
+    },
+    {
+      loader: 'sass-loader'
     }
   ],
   exclude: /node_modules/
@@ -106,9 +108,7 @@ loaders.image = {
   }]
 }
 
-//
 // PLUGINS
-//
 
 const sourceMap = process.env.TEST || !isProduction
   ? [new webpack.SourceMapDevToolPlugin({ filename: null, test: /\.jsx?$/ })]
