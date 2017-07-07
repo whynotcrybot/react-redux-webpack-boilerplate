@@ -149,7 +149,7 @@ module.exports = {
       'react-router-dom',
       'react-router-redux',
       'redux',
-      'redux-thunk',
+      'redux-thunk'
     ]
   },
   output: {
