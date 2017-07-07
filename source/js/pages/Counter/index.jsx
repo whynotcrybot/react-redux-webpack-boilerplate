@@ -7,7 +7,7 @@ import { Flex, Box } from 'reflexbox'
 const Counter = function (props) {
   return (
     <Flex justify='center'>
-      <Box col={8}>
+      <Box w={2 / 3}>
         <h1>{'Redux Counter'}</h1>
         <p>
           {`

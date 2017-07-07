@@ -13,7 +13,7 @@ const Root = (props) => {
     <Provider store={props.store}>
       <Router>
         <Flex wrap>
-          <Box col={12}>
+          <Box w={1}>
             <Navigation.Wrapper>
               <Navigation.Item to={'/'}>Home</Navigation.Item>
               <Navigation.Item to={'/counter'}>Redux Counter</Navigation.Item>

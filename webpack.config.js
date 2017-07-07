@@ -1,7 +1,6 @@
 const webpack = require('webpack')
 const path = require('path')
 
-const DashboardPlugin = require('webpack-dashboard/plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 const nodeEnv = process.env.NODE_ENV || 'development'
@@ -63,39 +62,11 @@ loaders.css = {
         plugins: postcssPlugins,
         importLoaders: 1
       }
-    },
-    {
-      loader: 'sass-loader'
     }
   ],
   exclude: /node_modules/
 }
 
-//
-// loaders.ttfeot = {
-//     test: /\.(ttf|eot)$/i,
-//     use: [{
-//         loader: 'file-loader',
-//         options: {
-//             hash: 'sha512',
-//             digest: 'hex',
-//             name: 'fonts/[name].[ext]?[hash]'
-//         }
-//     }]
-// };
-//
-// loaders.woff = {
-//     test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-//     use: [{
-//         loader: 'url-loader',
-//         options: {
-//             limit: 10000,
-//             minetype: 'application/font-woff',
-//             name: 'fonts/[name].[ext]?[hash]'
-//         }
-//     }]
-// };
-//
 loaders.image = {
   test: /\.(jpe?g|png|gif)$/i,
   use: [{
@@ -136,8 +107,7 @@ const basePlugins = [
 ].concat(sourceMap)
 
 const devPlugins = [
-  new webpack.HotModuleReplacementPlugin(),
-  new DashboardPlugin()
+  new webpack.HotModuleReplacementPlugin()
 ]
 
 const prodPlugins = [
@@ -172,14 +142,14 @@ module.exports = {
   entry: {
     js: './index.jsx',
     vendor: [
-      'babel-polyfill',
-      'isomorphic-fetch',
+      'react',
       'react-dom',
       'react-redux',
       'react-router',
-      'react',
+      'react-router-dom',
+      'react-router-redux',
+      'redux',
       'redux-thunk',
-      'redux'
     ]
   },
   output: {
@@ -191,9 +161,7 @@ module.exports = {
     rules: [
       loaders.js,
       loaders.image,
-      loaders.css,
-      //loaders.ttfeot,
-      //loaders.woff
+      loaders.css
     ]
   },
   resolve: {

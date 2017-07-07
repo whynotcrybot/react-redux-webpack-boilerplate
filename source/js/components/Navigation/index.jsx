@@ -25,7 +25,7 @@ const Wrapper = (props) => {
     >
       <Box
         className={styles.navigationWrapper}
-        col={6}
+        w={1 / 2}
       >
         {props.children}
       </Box>

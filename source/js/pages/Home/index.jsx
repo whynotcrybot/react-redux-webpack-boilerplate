@@ -5,7 +5,7 @@ import { Flex, Box } from 'reflexbox'
 const Home = () => {
   return (
     <Flex justify='center'>
-      <Box col={8}>
+      <Box w={2 / 3}>
         <h2>Home</h2>
       </Box>
     </Flex>
