@@ -9,7 +9,7 @@ import App from './pages/app'
 // Store
 const middleware = [
   thunk
-].concat(process.env.__DEV__ ? [createLogger({collapsed: true})] : [])
+].concat(process.env.IS_DEV ? [createLogger({collapsed: true})] : [])
 
 const enhancer = compose(
   applyMiddleware(...middleware)
