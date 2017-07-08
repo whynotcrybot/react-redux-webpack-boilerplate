@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Flex, Box } from 'reflexbox'
-import cat from '../../../assets/img/cat.jpg'
+import cat from 'img/cat.jpg'
 
 const Neko = () => {
   return (
