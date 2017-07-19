@@ -6,7 +6,7 @@ const postcssPlugins = [
 ]
 
 export default {
-  test: /\.(css|scss)$/,
+  test: /\.(css)$/,
   use: [
     {
       loader: 'style-loader'
@@ -14,7 +14,7 @@ export default {
     {
       loader: 'css-loader',
       options: {
-        localIdentName: '[hash:base64]',
+        localIdentName: '[local]--[hash:base64:5]',
         camelCase: true
       }
     },
